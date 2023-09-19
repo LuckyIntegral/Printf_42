@@ -6,7 +6,7 @@
 /*   By: vfrants <vfrants@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 23:35:50 by vfrants           #+#    #+#             */
-/*   Updated: 2023/09/14 23:22:21 by vfrants          ###   ########.fr       */
+/*   Updated: 2023/09/19 22:03:43 by vfrants          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ int	ft_pf_vau(t_flags *flags, unsigned int n)
 		spaces = ft_pf_get_spaces(flags, ft_strlen(res));
 		if (spaces < 0)
 		{
-			counter += write(1, res, ft_strlen(res));
-			counter += ft_pf_putnchar(' ', ft_abs(spaces));
+			counter += write(flags->fd, res, ft_strlen(res));
+			counter += ft_pf_putnchar(' ', ft_abs(spaces), flags->fd);
 		}
 		else
 		{
-			counter += ft_pf_putnchar(' ', spaces);
-			counter += write(1, res, ft_strlen(res));
+			counter += ft_pf_putnchar(' ', spaces, flags->fd);
+			counter += write(flags->fd, res, ft_strlen(res));
 		}
 		free(res);
 	}

@@ -6,26 +6,11 @@
 /*   By: vfrants <vfrants@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 20:34:43 by vfrants           #+#    #+#             */
-/*   Updated: 2023/09/14 23:23:51 by vfrants          ###   ########.fr       */
+/*   Updated: 2023/09/19 22:08:11 by vfrants          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-size_t	ft_pf_parse_number( const char *str, int *i)
-{
-	size_t	res;
-
-	if (str[*i] == '-' || str[*i] == '0' || str[*i] == '.')
-		(*i)++;
-	res = 0;
-	while (ft_isdigit(str[*i]))
-	{
-		res = res * 10 + (str[*i] - '0');
-		(*i)++;
-	}
-	return (res);
-}
 
 int	ft_pf_parse_flag(t_flags *flags, const char *str, int i)
 {
@@ -96,7 +81,7 @@ int	ft_pf_parse_args(va_list *ap, t_flags *flags, const char *str)
 			counter += ft_pf_put_arg(ap, flags, str[i++]);
 		}
 		else
-			counter += ft_pf_putnchar(str[i++], 1);
+			counter += ft_pf_putnchar(str[i++], 1, flags->fd);
 	}
 	return (counter);
 }
@@ -107,6 +92,22 @@ int	ft_printf(const char *fmt, ...)
 	va_list	ap;
 	int		counter;
 
+	flags.fd = STDOUT;
+	if (!fmt || *fmt == '\0')
+		return (0);
+	va_start(ap, fmt);
+	counter = ft_pf_parse_args(&ap, &flags, fmt);
+	va_end(ap);
+	return (counter);
+}
+
+int	ft_printf_fd(int fd, const char *fmt, ...)
+{
+	t_flags	flags;
+	va_list	ap;
+	int		counter;
+
+	flags.fd = fd;
 	if (!fmt || *fmt == '\0')
 		return (0);
 	va_start(ap, fmt);

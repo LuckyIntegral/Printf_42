@@ -6,7 +6,7 @@
 /*   By: vfrants <vfrants@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 20:16:20 by vfrants           #+#    #+#             */
-/*   Updated: 2023/09/19 19:35:08 by vfrants          ###   ########.fr       */
+/*   Updated: 2023/09/19 22:07:56 by vfrants          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,22 @@
 # include <stdarg.h>
 # include "libft/libft.h"
 
-# ifndef OUTPUT
-#  define OUTPUT 1
-# endif
-
+# define STDOUT 1
 # define HEX "0123456789abcdef"
 
-typedef struct s_flags // for each field: 0 if nothing, else !0
+typedef struct s_flags // for each field: 0 if nothing, else !0, ecxept fd
 {
 	int	minus;
 	int	zero;
 	int	dot;
 	int	numb;
+	int	fd;
 }		t_flags;
 
 // printf
 
-int		ft_printf(const char *fmt, ...);
+int		ft_printf(const char *fmt, ...); // Works with stdout only
+int		ft_printf_fd(int fd, const char *fmt, ...); // Works with custom fd
 
 // type conversions
 
@@ -46,14 +45,15 @@ int		ft_pf_vax(t_flags *flags, int nbr);
 
 // function duplicates
 
+size_t	ft_pf_parse_number(const char *str, int *i);
 size_t	ft_pf_nbrlen_hex(int n);
 size_t	ft_pf_nbrlen(int n);
 void	ft_pf_flags_init(t_flags *flags);
 char	*ft_pf_itoa_hex(int n);
 int		ft_pf_get_spaces(t_flags *flags, size_t strlen);
 int		ft_pf_xoff(int strlen, int zero, int dot);
-int		ft_pf_putnstr(const char *str, int n);
-int		ft_pf_putnchar(char c, int n);
+int		ft_pf_putnstr(const char *str, int n, int fd);
+int		ft_pf_putnchar(char c, int n, int fd);
 int		ft_pf_istype(char c);
 int		ft_pf_isspec(char c);
 

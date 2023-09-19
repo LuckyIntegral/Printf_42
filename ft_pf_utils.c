@@ -6,11 +6,26 @@
 /*   By: vfrants <vfrants@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 17:02:48 by vfrants           #+#    #+#             */
-/*   Updated: 2023/09/14 23:22:34 by vfrants          ###   ########.fr       */
+/*   Updated: 2023/09/19 22:07:42 by vfrants          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+size_t	ft_pf_parse_number(const char *str, int *i)
+{
+	size_t	res;
+
+	if (str[*i] == '-' || str[*i] == '0' || str[*i] == '.')
+		(*i)++;
+	res = 0;
+	while (ft_isdigit(str[*i]))
+	{
+		res = res * 10 + (str[*i] - '0');
+		(*i)++;
+	}
+	return (res);
+}
 
 void	ft_pf_flags_init(t_flags *flags)
 {

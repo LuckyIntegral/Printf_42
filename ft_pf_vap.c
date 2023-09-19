@@ -6,7 +6,7 @@
 /*   By: vfrants <vfrants@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 11:42:41 by vfrants           #+#    #+#             */
-/*   Updated: 2023/09/14 23:18:54 by vfrants          ###   ########.fr       */
+/*   Updated: 2023/09/19 22:03:23 by vfrants          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ int	ft_pf_vap(t_flags *flags, void *n)
 	{
 		spaces = ft_pf_get_spaces(flags, ft_strlen(hex));
 		if (spaces > 0)
-			counter += ft_pf_putnchar(' ', spaces);
-		counter += write(1, hex, ft_strlen(hex));
+			counter += ft_pf_putnchar(' ', spaces, flags->fd);
+		counter += write(flags->fd, hex, ft_strlen(hex));
 		if (spaces < 0)
-			counter += ft_pf_putnchar(' ', ft_abs(spaces));
+			counter += ft_pf_putnchar(' ', ft_abs(spaces), flags->fd);
 	}
 	free(hex);
 	return (counter);

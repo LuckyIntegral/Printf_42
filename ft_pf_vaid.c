@@ -6,7 +6,7 @@
 /*   By: vfrants <vfrants@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 11:50:00 by vfrants           #+#    #+#             */
-/*   Updated: 2023/09/14 23:21:58 by vfrants          ###   ########.fr       */
+/*   Updated: 2023/09/19 22:02:45 by vfrants          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ int	ft_pf_vaid(t_flags *flags, int n)
 	{
 		if (spaces < 0)
 		{
-			counter += write(1, res, ft_strlen(res));
-			counter += ft_pf_putnchar(' ', ft_abs(spaces));
+			counter += write(flags->fd, res, ft_strlen(res));
+			counter += ft_pf_putnchar(' ', ft_abs(spaces), flags->fd);
 		}
 		else
 		{
-			counter += ft_pf_putnchar(' ', spaces);
-			counter += write(1, res, ft_strlen(res));
+			counter += ft_pf_putnchar(' ', spaces, flags->fd);
+			counter += write(flags->fd, res, ft_strlen(res));
 		}
 	}
 	free(res);

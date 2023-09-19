@@ -6,7 +6,7 @@
 /*   By: vfrants <vfrants@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 09:36:10 by vfrants           #+#    #+#             */
-/*   Updated: 2023/09/14 23:20:32 by vfrants          ###   ########.fr       */
+/*   Updated: 2023/09/19 22:00:47 by vfrants          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ int	ft_pf_vax(t_flags *flags, int nbr)
 		offset = ft_pf_xoff(ft_strlen(hex), flags->zero, flags->dot);
 		spaces = ft_pf_get_spaces(flags, ft_strlen(hex) + offset);
 		if (spaces > 0)
-			counter += ft_pf_putnchar(' ', spaces);
-		counter += ft_pf_putnchar('0', offset);
-		counter += write(1, hex, ft_strlen(hex));
+			counter += ft_pf_putnchar(' ', spaces, flags->fd);
+		counter += ft_pf_putnchar('0', offset, flags->fd);
+		counter += write(flags->fd, hex, ft_strlen(hex));
 		if (spaces < 0)
-			counter += ft_pf_putnchar(' ', ft_abs(spaces));
+			counter += ft_pf_putnchar(' ', ft_abs(spaces), flags->fd);
 		free(hex);
 	}
 	return (counter);
